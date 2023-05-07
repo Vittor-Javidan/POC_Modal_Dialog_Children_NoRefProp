@@ -1,7 +1,11 @@
-# Prove of Concept of dialog html tag for accessibilitie
+# Proof of Concept of dialog html tag for accessibilitie
 
 The dialog tag is used for the purpose of handling the webpage focus when a modal is opened. This is usefull for keyboard users, who navigate through web by pressing the tab key.
 This prove of concept show the most simplified whay that i found of using this tag without losing focus history.
+
+## Where to read?
+
+all files needed to understando are inside src > components folder
 
 ## features:
 - Parent components don't need to know about the reference of the modal.
