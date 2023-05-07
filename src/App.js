@@ -1,25 +1,69 @@
-import logo from './logo.svg';
+import React, { useState, Suspense, lazy } from 'react';
 import './App.css';
 
-function App() {
+const Modal = lazy(() => import('./components/Modal')) // Lazy import
+
+export default function App() {
+
+  const [amount, setAmount] = useState(10)
+  const [showModal, setShowModal] = useState(false)
+  function openModal() { setShowModal(true) }
+  function closeModal() { setShowModal(false) }
+  function onChange(e) { setAmount(e.target.value) }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+
+      <div>
+        <label
+          htmlFor='input'
         >
-          Learn React
-        </a>
-      </header>
+          <span>Inputs Amount</span>
+          <input 
+            id='input'
+            placeholder='Amount of buttons'
+            value={amount}
+            onChange={onChange}
+          />
+        </label>
+      </div>
+      
+      <ButtonsArray
+        amount={Number(amount) ? Number(amount) : 0}
+        onClick={openModal}
+      />
+      
+
+      {showModal && (
+        <Suspense>
+          <Modal
+            onPressEsc={closeModal}
+          >
+            <button
+              onClick={closeModal}
+            >
+              fechar modal
+            </button>
+          </Modal>
+        </Suspense>
+      )}
     </div>
   );
 }
 
-export default App;
+function ButtonsArray({amount, onClick}) {
+  const buttonsArray = []
+  for(let i = 0; i < amount; i++) {
+    buttonsArray.push(
+      <button 
+        key={i}
+        onClick={onClick}
+      >
+        open modal
+      </button>
+    )
+  }
+  return (<div>
+    {buttonsArray}
+  </div>)
+}
