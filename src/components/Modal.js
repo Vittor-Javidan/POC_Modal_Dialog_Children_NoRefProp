@@ -4,11 +4,6 @@ export default function Modal({ onPressEsc, children }) {
 
   const modalRef = useRef(null)
 
-  function openModal() {
-    modalRef.current?.close()
-    modalRef.current?.showModal()
-  }
-
   function closeModal() {
     onPressEsc()
     modalRef.current?.close()
@@ -16,7 +11,8 @@ export default function Modal({ onPressEsc, children }) {
 
   useEffect(() => {
     const { current } = modalRef
-    openModal()
+    modalRef.current?.close()
+    modalRef.current?.showModal()
     return () => {
       current?.close()
     }
